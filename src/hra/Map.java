@@ -5,6 +5,14 @@ public class Map {
     private int col;
     private char[][] arrayMap;
 
+    public char[][] getArrayMap() {
+        return arrayMap;
+    }
+
+    public void setArrayMap(char[][] arrayMap) {
+        this.arrayMap = arrayMap;
+    }
+
     public Map(int row, int col) {
         this.row = row;
         this.col = col;
