@@ -1,12 +1,26 @@
 package hra;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner input=new Scanner(System.in);
         Map firstmap = new Map(7,14);
+        int [] position=new int[2];
+        position[0]=1;
+        position[1]=1;
+        char x;
         firstmap.createMap();
-        firstmap.showMap();
+        do{
+            firstmap.showMap();
+            System.out.println("Pohyb: WASD/wasd");
+            System.out.println("Konec: 0");
+            x=input.next().charAt(0);
+            walk(firstmap.getArrayMap(),position,x);
+        }while(x!='0');
+
     }
-    public static void walk(char map[][], char position[], char x) {
+    public static void walk(char map[][], int position[], char x) {
         int row = position[0];
         int column = position[1];
         if ((x == 'W' || x == 'w')&&map[row-1][column]=='.') {
