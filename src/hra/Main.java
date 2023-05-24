@@ -17,6 +17,9 @@ public class Main {
             System.out.println("Konec: 0");
             x=input.next().charAt(0);
             walk(firstmap.getArrayMap(),position,x);
+            for(int i=0;i<20;i++){
+                System.out.println();
+            }
         }while(x!='0');
 
     }
