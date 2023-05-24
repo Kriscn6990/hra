@@ -15,7 +15,9 @@ public class Main {
 
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
+
         System.out.println(asciiImagespider);
+
 
 
         int [] position=new int[2];
@@ -37,9 +39,7 @@ public class Main {
             for(int i=0;i<firstmap.getEnemies().length;i++){
                 if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
                     Fight fight=new Fight();
-                    System.out.println("Nepritel");
-                    System.out.println("HP: "+firstmap.getEnemies()[i].getHp());
-                    System.out.println("Utok: "+firstmap.getEnemies()[i].getAttack());
+                    showEnemyInfo(firstmap.getEnemies()[i].getHp(),firstmap.getEnemies()[i].getAttack(),firstmap.getEnemies()[i].getName());
                     if(fight.fightMenu()==1){
 
                     }
@@ -99,6 +99,21 @@ public class Main {
             if(i==59) System.out.println();
         }
 
+    }
+
+    public static void showEnemyInfo(int hp,int attack,String name){
+        System.out.println("Nepritel");
+        //System.out.println(name);
+        System.out.print("HP [");
+        for(int i=0;i<hp;i++){
+            System.out.print("\u2665");
+        }
+        System.out.println("]");
+        System.out.print("Utok [");
+        for (int i=0;i<attack;i++){
+            System.out.print("\u2694");
+        }
+        System.out.println("]");
     }
 
     public static boolean onItem(int [] position, int [] itemPosition){
