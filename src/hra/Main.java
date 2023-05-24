@@ -1,15 +1,23 @@
 package hra;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input=new Scanner(System.in);
-        System.out.println("Welcome to this superhero game\n please write your superhero name:");
+        System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
         //tvorba hrace a mapy
         Player player = new Player(input.nextLine(),5,0);
-        Map firstmap = new Map(10,7,25);
+        Map firstmap = new Map(20,7,25);
         //
+        /*String asciiImagespider = readASCIIImage("/ascii_art_spider.txt");
+        String asciiImagebatman = readASCIIImage("/ascii_art.txt");
+        System.out.println(asciiImagespider);*/
+
+
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;
@@ -37,6 +45,8 @@ public class Main {
                 System.out.println();
             }
         }while(x!='0');
+
+
     }
     public static void walk(char map[][], int position[], char x) {
         int row = position[0];
@@ -57,15 +67,6 @@ public class Main {
             map[row][column + 1] = '#';
             map[row][column] = '.';
             position[1]++;
-        }
-    }
-    //delete later
-    public static boolean checkWall(char map[][], int row, int column) {
-        if (map[row][column] == '│' || map[row][column] == '─' || map[row][column] == '┐' || map[row][column] == '┌' || map[row][column] == '└' || map[row][column] == '┘') {
-            return false;
-        }
-        else{
-            return true;
         }
     }
     //show hp
@@ -91,4 +92,13 @@ public class Main {
         }
 
     }
+    /*private static String readASCIIImage(String filePath) {
+        try {
+            byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
+            return new String(encodedBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
 }

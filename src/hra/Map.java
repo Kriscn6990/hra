@@ -73,7 +73,7 @@ public class Map {
                 }
             }
         }
-        createItems(arrayMap,countQMarks);
+        arrayMap = addmarks(countOfmarks,row,col,arrayMap);
     }
     //vypis mapy
     public void showMap(){
@@ -83,6 +83,22 @@ public class Map {
             }
             System.out.println();
         }
+    }
+    //pridej otazniky do mapy
+    public char[][] addmarks(int count,int row,int col,char[][] arrayMap){
+        //7 radku pouzitelne 5 25 radku pouzitelne 23
+        Random generate = new Random();
+        int rw,cl;
+        while (count != 0)
+        {
+            rw = generate.nextInt(1,row-1);
+            cl = generate.nextInt(1,col-1);
+            if(arrayMap[rw][cl] == '.'){
+                arrayMap[rw][cl] = '?';
+            }
+            count--;
+        }
+        return arrayMap;
     }
 
     public void createItems(char [][] arrayMap,int countQMarks){
