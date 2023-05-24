@@ -12,10 +12,10 @@ public class Main {
         //tvorba hrace a mapy
         Player player = new Player(input.nextLine(),5,0);
         Map firstmap = new Map(20,7,25);
-        //
-        /*String asciiImagespider = readASCIIImage("/ascii_art_spider.txt");
-        String asciiImagebatman = readASCIIImage("/ascii_art.txt");
-        System.out.println(asciiImagespider);*/
+
+        String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
+        String asciiImagebatman = readASCIIImage("ascii_art.txt");
+        System.out.println(asciiImagespider);
 
 
         int [] position=new int[2];
@@ -29,12 +29,15 @@ public class Main {
             firstmap.showMap();
             for(int i=0;i<firstmap.getHp().length;i++){
                 if(onItem(position,firstmap.getHp()[i].getItemPosition())){
-                    System.out.println("Vzit item: E/e");
+                    System.out.println("Byl ziskan item");
                 }
             }
             for(int i=0;i<firstmap.getEnemies().length;i++){
                 if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
-                    System.out.println("Utocit na nepritele: E/e");
+                    Fight fight=new Fight();
+                    if(fight.fightMenu()==1){
+                        
+                    }
                 }
             }
             System.out.println("Pohyb: WASD/wasd");
@@ -101,7 +104,7 @@ public class Main {
             return false;
         }
     }
-    /*private static String readASCIIImage(String filePath) {
+    private static String readASCIIImage(String filePath) {
         try {
             byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
             return new String(encodedBytes);
@@ -109,5 +112,5 @@ public class Main {
             e.printStackTrace();
         }
         return null;
-    }*/
+    }
 }
