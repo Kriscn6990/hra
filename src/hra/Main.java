@@ -30,13 +30,18 @@ public class Main {
             for(int i=0;i<firstmap.getHp().length;i++){
                 if(onItem(position,firstmap.getHp()[i].getItemPosition())){
                     System.out.println("Byl ziskan item");
+                    System.out.println("Pridava "+firstmap.getHp()[i].getCountOfHealthToAdd()+" HP");
+                    player.setHp(firstmap.getHp()[i].getCountOfHealthToAdd());
                 }
             }
             for(int i=0;i<firstmap.getEnemies().length;i++){
                 if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
                     Fight fight=new Fight();
+                    System.out.println("Nepritel");
+                    System.out.println("HP: "+firstmap.getEnemies()[i].getHp());
+                    System.out.println("Utok: "+firstmap.getEnemies()[i].getAttack());
                     if(fight.fightMenu()==1){
-                        
+
                     }
                 }
             }
