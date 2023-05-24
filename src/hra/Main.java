@@ -13,6 +13,14 @@ public class Main {
         firstmap.createMap();
         do{
             firstmap.showMap();
+            for(int i=0;i<firstmap.getHp().length;i++){
+                if(onItem(position,firstmap.getHp()[i].getItemPosition())){
+                    System.out.println("Vzit item: E/e");
+                }
+                else if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
+                    System.out.println("Utocit na nepritele: E/e");
+                }
+            }
             System.out.println("Pohyb: WASD/wasd");
             System.out.println("Konec: 0");
             x=input.next().charAt(0);
@@ -26,19 +34,19 @@ public class Main {
     public static void walk(char map[][], int position[], char x) {
         int row = position[0];
         int column = position[1];
-        if ((x == 'W' || x == 'w')&&map[row-1][column]=='.') {
+        if ((x == 'W' || x == 'w')&&(map[row-1][column]=='.'||map[row-1][column]=='?')) {
             map[row - 1][column] = '#';
             map[row][column] = '.';
             position[0]--;
-        } else if ((x == 'S' || x == 's')&&map[row+1][column]=='.') {
+        } else if ((x == 'S' || x == 's')&&(map[row+1][column]=='.'||map[row+1][column]=='?')) {
             map[row + 1][column] = '#';
             map[row][column] = '.';
             position[0]++;
-        } else if ((x == 'A' || x == 'a')&&map[row][column-1]=='.') {
+        } else if ((x == 'A' || x == 'a')&&(map[row][column-1]=='.'||map[row][column-1]=='?')) {
             map[row][column - 1] = '#';
             map[row][column] = '.';
             position[1]--;
-        } else if ((x == 'D' || x == 'd')&&map[row][column+1]=='.') {
+        } else if ((x == 'D' || x == 'd')&&(map[row][column+1]=='.'||map[row][column+1]=='?')) {
             map[row][column + 1] = '#';
             map[row][column] = '.';
             position[1]++;
@@ -51,6 +59,15 @@ public class Main {
         }
         else{
             return true;
+        }
+    }
+
+    public static boolean onItem(int [] position, int [] itemPosition){
+        if(position[0]==itemPosition[0]&&position[1]==itemPosition[1]){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
