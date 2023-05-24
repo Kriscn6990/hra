@@ -77,6 +77,7 @@ public class Map {
                 }
             }
         }
+        createItems(arrayMap,countQMarks);
     }
     //vypis mapy
     public void showMap(){
@@ -97,7 +98,7 @@ public class Map {
         for(int i=0;i<row;i++){
             for(int j=0;j<col;j++){
                 if(arrayMap[i][j]=='?'){
-                    if(generator.nextInt(0,1)==0){
+                    if(generator.nextInt(0,3)==0){
                         positionOfHp[countHp][0]=i;
                         positionOfHp[countHp][1]=j;
                         countHp++;
@@ -110,14 +111,18 @@ public class Map {
                 }
             }
         }
+        System.out.println("Hp"+countHp);
+        System.out.println("Enemies"+countEnemies);
         hp=new Hp[countHp];
         enemies=new Enemies[countEnemies];
 
         for(int i=0;i<countHp;i++){
+            hp[i]=new Hp();
             hp[i].setItemPosition(positionOfHp[i]);
             hp[i].setCountOfHealthToAdd(generator.nextInt(1,3));
         }
         for(int i=0;i<countEnemies;i++){
+            enemies[i]=new Enemies();
             enemies[i].setItemPosition(positionOfEnemies[i]);
             enemies[i].setHp(generator.nextInt(1,6));
             enemies[i].setAttack(generator.nextInt(1,2));

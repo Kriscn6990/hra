@@ -17,7 +17,9 @@ public class Main {
                 if(onItem(position,firstmap.getHp()[i].getItemPosition())){
                     System.out.println("Vzit item: E/e");
                 }
-                else if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
+            }
+            for(int i=0;i<firstmap.getEnemies().length;i++){
+                if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
                     System.out.println("Utocit na nepritele: E/e");
                 }
             }

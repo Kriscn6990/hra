@@ -5,6 +5,12 @@ public class Enemies extends Items{
     private int attack;
     private String difficulty;
 
+    public Enemies() {
+        this.hp = 0;
+        this.attack = 0;
+        this.difficulty ="";
+    }
+
     public int getHp() {
         return hp;
     }
