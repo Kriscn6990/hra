@@ -119,8 +119,6 @@ public class Map {
                 }
             }
         }
-        System.out.println("Hp"+countHp);
-        System.out.println("Enemies"+countEnemies);
         hp=new Hp[countHp];
         enemies=new Enemies[countEnemies];
 
