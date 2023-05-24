@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input=new Scanner(System.in);
-        Map firstmap = new Map(7,14);
+        Map firstmap = new Map(7,7,25);
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;

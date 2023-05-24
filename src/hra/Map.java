@@ -1,6 +1,9 @@
 package hra;
 
+import java.util.Random;
+
 public class Map {
+    private int countOfmarks;
     private int row;
     private int col;
     private char[][] arrayMap;
@@ -9,11 +12,20 @@ public class Map {
         return arrayMap;
     }
 
+    public int getCountOfmarks() {
+        return countOfmarks;
+    }
+
+    public void setCountOfmarks(int countOfmarks) {
+        this.countOfmarks = countOfmarks;
+    }
+
     public void setArrayMap(char[][] arrayMap) {
         this.arrayMap = arrayMap;
     }
 
-    public Map(int row, int col) {
+    public Map(int countOfmarks, int row, int col) {
+        this.countOfmarks = countOfmarks;
         this.row = row;
         this.col = col;
     }
@@ -35,6 +47,8 @@ public class Map {
     }
     //vytvor mapu
     public void createMap(){
+        Random generator = new Random();
+        int ccount = countOfmarks;
         arrayMap = new char[row][col];
         arrayMap[0][0] = '┌';
         arrayMap[0][col-1] = '┐';
@@ -46,6 +60,11 @@ public class Map {
                 if(arrayMap[i][j] != '┌' && arrayMap[i][j] != '┐' && arrayMap[i][j] != '┘' && arrayMap[i][j] != '└' && arrayMap[i][j] != '#'){
                     if(i != 0 && i != row-1){
                         if( j != 0 && j != col-1){
+                            if (ccount != 0 && ((generator.nextInt(10)) == 1)){
+                                arrayMap[i][j] = '?';
+                                ccount--;
+                            }
+                            else
                             arrayMap[i][j] = '.';
                         }
                         else arrayMap[i][j] = '│';
