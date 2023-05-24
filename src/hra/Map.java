@@ -7,23 +7,18 @@ public class Map {
     private int row;
     private int col;
     private char[][] arrayMap;
-
     public char[][] getArrayMap() {
         return arrayMap;
     }
-
     public int getCountOfmarks() {
         return countOfmarks;
     }
-
     public void setCountOfmarks(int countOfmarks) {
         this.countOfmarks = countOfmarks;
     }
-
     public void setArrayMap(char[][] arrayMap) {
         this.arrayMap = arrayMap;
     }
-
     public Map(int countOfmarks, int row, int col) {
         this.countOfmarks = countOfmarks;
         this.row = row;
@@ -54,7 +49,7 @@ public class Map {
         arrayMap[0][col-1] = '┐';
         arrayMap[row-1][0] = '└';
         arrayMap[row-1][col-1] = '┘';
-        arrayMap[1][1] = '#';
+        arrayMap[1][1] = '#';//vychozi pozice hrace
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 if(arrayMap[i][j] != '┌' && arrayMap[i][j] != '┐' && arrayMap[i][j] != '┘' && arrayMap[i][j] != '└' && arrayMap[i][j] != '#'){
