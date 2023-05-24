@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b041c4a-36e3-418a-9138-bd50eefe7a2d" name="Changes" comment="create">
-      <change afterPath="$PROJECT_DIR$/src/hra/ascii_art.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hra/ascii_art_spider.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Enemies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Enemies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Hp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Hp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Items.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hra/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hra/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Map.java" afterDir="false" />
     </list>
@@ -40,13 +35,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hra.Main" />

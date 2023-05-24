@@ -92,6 +92,15 @@ public class Main {
         }
 
     }
+
+    public static boolean onItem(int [] position, int [] itemPosition){
+        if(position[0]==itemPosition[0]&&position[1]==itemPosition[1]){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     /*private static String readASCIIImage(String filePath) {
         try {
             byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));

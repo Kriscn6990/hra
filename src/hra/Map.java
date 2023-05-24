@@ -59,12 +59,7 @@ public class Map {
                 if(arrayMap[i][j] != '┌' && arrayMap[i][j] != '┐' && arrayMap[i][j] != '┘' && arrayMap[i][j] != '└' && arrayMap[i][j] != '#'){
                     if(i != 0 && i != row-1){
                         if( j != 0 && j != col-1){
-                            if (ccount != 0 && ((generator.nextInt(10)) == 1)){
-                                arrayMap[i][j] = '?';
-                                ccount--;
-                                countQMarks++;
-                            }
-                            else
+
                             arrayMap[i][j] = '.';
                         }
                         else arrayMap[i][j] = '│';
@@ -74,6 +69,7 @@ public class Map {
             }
         }
         arrayMap = addmarks(countOfmarks,row,col,arrayMap);
+        createItems(arrayMap,countOfmarks);
     }
     //vypis mapy
     public void showMap(){
