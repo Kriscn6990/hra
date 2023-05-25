@@ -7,10 +7,18 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
         System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
+        checkinputvalueforname = input.nextLine();
+        while (checkinputvalueforname.equals("batman") == false && checkinputvalueforname.equals("spiderman") == false){
+            System.out.println("Wrong superhero");
+            checkinputvalueforname = input.nextLine();
+        }
+
+
         //tvorba hrace a mapy
-        Player player = new Player(input.nextLine(),5,0);
+        Player player = new Player(checkinputvalueforname,5,0);
         Map firstmap = new Map(20,7,25);
 
         //vypis hrdiny
@@ -41,17 +49,21 @@ public class Main {
             for(int i=0;i<firstmap.getHp().length;i++){
                 if(onItem(position,firstmap.getHp()[i].getItemPosition())){
                     System.out.println("Byl ziskan item");
-                    System.out.println("Pridava "+firstmap.getHp()[i].getCountOfHealthToAdd()+" HP");
+                    System.out.println("Pridava "+firstmap.getHp()[i].getCountOfHealthToAdd()+" \u2665");
                     player.setHp(player.getHp()+firstmap.getHp()[i].getCountOfHealthToAdd());
+                    int[] changePos = {100,100};
+                    firstmap.getHp()[i].setItemPosition(changePos);
                 }
             }
             for(int i=0;i<firstmap.getEnemies().length;i++){
                 if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
                     Fight fight=new Fight();
                     showEnemyInfo(firstmap.getEnemies()[i].getHp(),firstmap.getEnemies()[i].getAttack(),firstmap.getEnemies()[i].getName());
-                    if(fight.fightMenu()==1){
+                    if(fight.fightMenu(player,firstmap.getEnemies()[i])==1){
 
                     }
+                    int[] changePos = {100,100};
+                    firstmap.getEnemies()[i].setItemPosition(changePos);
                 }
             }
             System.out.println("Pohyb: WASD/wasd");
