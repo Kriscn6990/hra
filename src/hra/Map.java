@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Map {
     private int countOfmarks;
-    private int row;
-    private int col;
+    private static int row = 7;
+    private static int col = 25;
     private char[][] arrayMap;
     private Hp[] hp;
     private Enemies [] enemies;
@@ -22,10 +22,8 @@ public class Map {
     public void setArrayMap(char[][] arrayMap) {
         this.arrayMap = arrayMap;
     }
-    public Map(int countOfmarks, int row, int col) {
+    public Map(int countOfmarks) {
         this.countOfmarks = countOfmarks;
-        this.row = row;
-        this.col = col;
     }
 
     public int getRow() {
