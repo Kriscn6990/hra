@@ -13,10 +13,14 @@ public class Main {
         Player player = new Player(input.nextLine(),5,0);
         Map firstmap = new Map(20,7,25);
 
+        //vypis hrdiny
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
-
-        System.out.println(asciiImagespider);
+        if(player.getName().equals("batman")) {
+            System.out.println(asciiImagebatman);
+        }
+        else System.out.println(asciiImagespider);
+        //
 
 
 
@@ -33,7 +37,7 @@ public class Main {
                 if(onItem(position,firstmap.getHp()[i].getItemPosition())){
                     System.out.println("Byl ziskan item");
                     System.out.println("Pridava "+firstmap.getHp()[i].getCountOfHealthToAdd()+" HP");
-                    player.setHp(firstmap.getHp()[i].getCountOfHealthToAdd());
+                    player.setHp(player.getHp()+firstmap.getHp()[i].getCountOfHealthToAdd());
                 }
             }
             for(int i=0;i<firstmap.getEnemies().length;i++){
