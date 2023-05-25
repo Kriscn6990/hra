@@ -1,14 +1,11 @@
 package hra;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
 
-public class File {
+public class Kikinovysoubory {
     private String name;
 
-    public File(String name) {
+    public Kikinovysoubory(String name) {
         this.name = name;
     }
 
@@ -29,34 +26,35 @@ public class File {
         }
     }
 
-    public void writeScore(int score){
-        int [] scores=new int[countOfScores()+1];
-        try (BufferedReader reader=new BufferedReader(new FileReader(name))){
-            scores[0]=score;
-            for(int i=1;i<scores.length;i++){
-                scores[i]=Integer.parseInt(reader.readLine());
+    public void writeScore(int score,String playername){
+        String[] arrayofData;
+        Filescores[] players = new Filescores[countOfScores()+1];
+        players[0] = new Filescores(playername,score);
 
+        try (BufferedReader reader=new BufferedReader(new FileReader(name))){
+            for(int i=1;i<players.length;i++){
+                arrayofData = reader.readLine().split(";");
+                players[i]=new Filescores(arrayofData[1],Integer.parseInt(arrayofData[0]));
             }
         }catch (IOException error){
             System.out.println(error.getMessage());
         }
 
-        int pomocna;
-        for(int i=0;i<scores.length-1;i++){
-            for(int j=0;j<scores.length-1;j++){
-                if(scores[j]<scores[j+1]){
-                    pomocna=scores[j];
-                    scores[j]=scores[j+1];
-                    scores[j+1]=pomocna;
+        Filescores pomocna = new Filescores("",0);
+        for(int i=0;i<players.length-1;i++){
+            for(int j=0;j<players.length-1;j++){
+                if(players[j].getScore()<players[j+1].getScore()){
+                    pomocna=players[j];
+                    players[j]=players[j+1];
+                    players[j+1]=pomocna;
                 }
             }
         }
 
-        //Arrays.sort(scores, Collections.reverseOrder());
 
         try (BufferedWriter writer=new BufferedWriter(new FileWriter(name))){
-            for (int i=0;i<scores.length;i++){
-                writer.write(scores[i]+"\n");
+            for (int i=0;i<players.length;i++){
+                writer.write(players[i].getScore()+";"+players[i].getName()+"\n");
             }
         }catch (IOException error){
             System.out.println(error.getMessage());

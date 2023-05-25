@@ -1,1 +1,6 @@
-
+200;batman
+200;Karel
+150;Tom
+100;Kriscn
+50;Kikin
+0;Pavel

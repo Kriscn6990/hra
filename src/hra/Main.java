@@ -3,20 +3,19 @@ package hra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
+        Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
+        System.out.println("Scores of people:");
+        scores.readScore();
         System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
+        String superhero=input.nextLine();
+        System.out.println("Write your nickname:");
         checkinputvalueforname = input.nextLine();
-        while (checkinputvalueforname.equals("batman") == false && checkinputvalueforname.equals("spiderman") == false){
-            System.out.println("Wrong superhero");
-            checkinputvalueforname = input.nextLine();
-        }
-
 
         //tvorba hrace a mapy
         Player player = new Player(checkinputvalueforname,1);
@@ -26,16 +25,8 @@ public class Main {
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
         String asciiImageGarfield = readASCIIImage("garfield.txt");
+        String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
         String asciiMap= readASCIIImage("Map.txt");
-
-
-
-        if(player.getName().equals("batman")) {
-            System.out.println(asciiImagebatman);
-        }
-        else System.out.println(asciiImagespider);
-        //
-
 
 
         int [] position=new int[2];
@@ -43,6 +34,15 @@ public class Main {
         position[1]=1;
         char x =' ';
         //firstmap.createMap();
+        if(superhero.equals("batman")){
+            System.out.println(asciiImagebatman);
+        }
+        else if (superhero.equals("spiderman")) {
+            System.out.println(asciiImagespider);
+        }
+        else{
+            System.out.println(asciiImageDefault);
+        }
         firstmap.createMapByString(asciiMap);
         //mapa
         do{
@@ -90,6 +90,9 @@ public class Main {
             }
         }while(x!='0');
 
+        scores.writeScore(player.getScore(),player.getName());
+        System.out.println("Scores of people:");
+        scores.readScore();
 
     }
     public static void walk(char map[][], int position[], char x) {
@@ -121,7 +124,7 @@ public class Main {
             if(i==59) System.out.println();
         }
 
-        System.out.print("HP ");
+        System.out.print("HP " + hp);
         System.out.print("[");
         for (int i = 0; i < hp; i++) {
             System.out.print("\u2665");
