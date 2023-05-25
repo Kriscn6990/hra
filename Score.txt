@@ -1,1 +1,3 @@
-
+200;Karel
+150;Tom
+0;Pavel

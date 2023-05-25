@@ -3,20 +3,17 @@ package hra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
+        Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
+        System.out.println("Scores of people:");
+        scores.readScore();
         System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
         checkinputvalueforname = input.nextLine();
-        while (checkinputvalueforname.equals("batman") == false && checkinputvalueforname.equals("spiderman") == false){
-            System.out.println("Wrong superhero");
-            checkinputvalueforname = input.nextLine();
-        }
-
 
         //tvorba hrace a mapy
         Player player = new Player(checkinputvalueforname,1);
@@ -30,10 +27,7 @@ public class Main {
 
 
 
-        if(player.getName().equals("batman")) {
-            System.out.println(asciiImagebatman);
-        }
-        else System.out.println(asciiImagespider);
+
         //
 
 
@@ -90,6 +84,9 @@ public class Main {
             }
         }while(x!='0');
 
+        scores.writeScore(player.getScore(),player.getName());
+        scores.readScore();
+
     }
     public static void walk(char map[][], int position[], char x) {
         int row = position[0];
@@ -120,7 +117,7 @@ public class Main {
             if(i==59) System.out.println();
         }
 
-        System.out.print("HP ");
+        System.out.print("HP " + hp);
         System.out.print("[");
         for (int i = 0; i < hp; i++) {
             System.out.print("\u2665");
