@@ -132,7 +132,7 @@ public class Map {
             enemies[i].setItemPosition(positionOfEnemies[i]);
             enemies[i].setHp(generator.nextInt(1,6));
             enemies[i].setAttack(generator.nextInt(1,2));
-            if(enemies[i].getHp()>=2&&enemies[i].getAttack()>=1){
+            if(enemies[i].getHp()<=2&&enemies[i].getAttack()<=1){
                 enemies[i].setDifficulty("Lehky");
             }
             else if ((enemies[i].getHp()>2&&enemies[i].getHp()<=4)||(enemies[i].getHp()>4&&enemies[i].getAttack()==1)){
@@ -143,6 +143,18 @@ public class Map {
             }
         }
 
+    }
+
+    public void createMapByString(String map){
+        arrayMap=new char[row][col];
+        String [] lines=map.split("\r?\n");
+        for(int i=0;i<row;i++){
+            for (int j=0;j<col;j++){
+                arrayMap[i][j]=lines[i].charAt(j);
+            }
+        }
+        arrayMap = addmarks(countOfmarks,row,col,arrayMap);
+        createItems(arrayMap,countOfmarks);
     }
 
     public Hp[] getHp() {
