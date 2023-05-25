@@ -16,6 +16,9 @@ public class Main {
         //vypis hrdiny
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
+
+        String asciiMap= readASCIIImage("Map.txt");
+        System.out.println(asciiMap);
         if(player.getName().equals("batman")) {
             System.out.println(asciiImagebatman);
         }
