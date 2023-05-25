@@ -5,6 +5,7 @@ public class Enemies extends Items{
     private int attack;
     private String difficulty;
 
+
     public Enemies() {
         this.hp = 0;
         this.attack = 0;
@@ -34,4 +35,5 @@ public class Enemies extends Items{
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
+
 }
