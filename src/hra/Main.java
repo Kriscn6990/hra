@@ -13,6 +13,8 @@ public class Main {
         System.out.println("Scores of people:");
         scores.readScore();
         System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
+        String superhero=input.nextLine();
+        System.out.println("Write your nickname:");
         checkinputvalueforname = input.nextLine();
 
         //tvorba hrace a mapy
@@ -23,13 +25,8 @@ public class Main {
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
         String asciiImageGarfield = readASCIIImage("garfield.txt");
+        String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
         String asciiMap= readASCIIImage("Map.txt");
-
-
-
-
-        //
-
 
 
         int [] position=new int[2];
@@ -37,6 +34,15 @@ public class Main {
         position[1]=1;
         char x =' ';
         //firstmap.createMap();
+        if(superhero.equals("batman")){
+            System.out.println(asciiImagebatman);
+        }
+        else if (superhero.equals("spiderman")) {
+            System.out.println(asciiImagespider);
+        }
+        else{
+            System.out.println(asciiImageDefault);
+        }
         firstmap.createMapByString(asciiMap);
         //mapa
         do{
@@ -85,6 +91,7 @@ public class Main {
         }while(x!='0');
 
         scores.writeScore(player.getScore(),player.getName());
+        System.out.println("Scores of people:");
         scores.readScore();
 
     }
