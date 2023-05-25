@@ -1,14 +1,14 @@
 package hra;
 
 public class Player {
-    private int score=0;
+    private static int score=0;
     private String name;
     private int hp;
 
-    public Player(String name, int hp,int score) {
+    public Player(String name, int hp) {
         this.name = name;
         this.hp = hp;
-        this.score = score;
+
     }
 
     public int getScore() {

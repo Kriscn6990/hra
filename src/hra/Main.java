@@ -3,6 +3,7 @@ package hra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -18,12 +19,13 @@ public class Main {
 
 
         //tvorba hrace a mapy
-        Player player = new Player(checkinputvalueforname,5,0);
-        Map firstmap = new Map(20,7,25);
+        Player player = new Player(checkinputvalueforname,1);
+        Map firstmap = new Map(20);
 
         //vypis hrdiny
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
+        String asciiImageGarfield = readASCIIImage("garfield.txt");
         String asciiMap= readASCIIImage("Map.txt");
 
 
@@ -39,39 +41,52 @@ public class Main {
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;
-        char x;
+        char x =' ';
         //firstmap.createMap();
         firstmap.createMapByString(asciiMap);
         //mapa
         do{
-            showplayerinfo(player.getHp(),player.getName(),player.getScore());
-            firstmap.showMap();
-            for(int i=0;i<firstmap.getHp().length;i++){
-                if(onItem(position,firstmap.getHp()[i].getItemPosition())){
-                    System.out.println("Byl ziskan item");
-                    System.out.println("Pridava "+firstmap.getHp()[i].getCountOfHealthToAdd()+" \u2665");
-                    player.setHp(player.getHp()+firstmap.getHp()[i].getCountOfHealthToAdd());
-                    int[] changePos = {100,100};
-                    firstmap.getHp()[i].setItemPosition(changePos);
-                }
-            }
-            for(int i=0;i<firstmap.getEnemies().length;i++){
-                if (onItem(position,firstmap.getEnemies()[i].getItemPosition())) {
-                    Fight fight=new Fight();
-                    showEnemyInfo(firstmap.getEnemies()[i].getHp(),firstmap.getEnemies()[i].getAttack(),firstmap.getEnemies()[i].getName());
-                    if(fight.fightMenu(player,firstmap.getEnemies()[i])==1){
-
+            if(player.getHp() != 0) {
+                showplayerinfo(player.getHp(), player.getName(), player.getScore());
+                firstmap.showMap();
+                for (int i = 0; i < firstmap.getHp().length; i++) {
+                    if (onItem(position, firstmap.getHp()[i].getItemPosition())) {
+                        System.out.println("Byl ziskan item");
+                        System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() + " \u2665");
+                        player.setHp(player.getHp() + firstmap.getHp()[i].getCountOfHealthToAdd());
+                        int[] changePos = {100, 100};
+                        firstmap.getHp()[i].setItemPosition(changePos);
                     }
-                    int[] changePos = {100,100};
-                    firstmap.getEnemies()[i].setItemPosition(changePos);
                 }
-            }
-            System.out.println("Pohyb: WASD/wasd");
-            System.out.println("Konec: 0");
-            x=input.next().charAt(0);
-            walk(firstmap.getArrayMap(),position,x);
-            for(int i=0;i<20;i++){
-                System.out.println();
+                for (int i = 0; i < firstmap.getEnemies().length; i++) {
+                    if (onItem(position, firstmap.getEnemies()[i].getItemPosition())) {
+                        System.out.println(asciiImageGarfield);
+                        Fight fight = new Fight();
+                        showEnemyInfo(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName());
+                        if (fight.fightMenu(player, firstmap.getEnemies()[i]) == 1) {
+
+                        }
+                        if(player.getHp()!=0) {
+                            showplayerinfo(player.getHp(), player.getName(), player.getScore());
+                            firstmap.showMap();
+                        }
+                        int[] changePos = {100, 100};
+                        firstmap.getEnemies()[i].setItemPosition(changePos);
+                    }
+                }
+                if(player.getHp()!=0) {
+                    System.out.println("Pohyb: WASD/wasd");
+                    System.out.println("Konec: 0");
+                    x = input.next().charAt(0);
+                    walk(firstmap.getArrayMap(), position, x);
+                    for (int i = 0; i < 20; i++) {
+                        System.out.println();
+                    }
+                }
+            }else {
+                System.out.println("You died");
+                x = '0';
+                System.out.println("Score: " + player.getScore());
             }
         }while(x!='0');
 
