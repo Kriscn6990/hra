@@ -44,7 +44,7 @@ public class File {
         int pomocna;
         for(int i=0;i<scores.length-1;i++){
             for(int j=0;j<scores.length-1;j++){
-                if(scores[j]>scores[j+1]){
+                if(scores[j]<scores[j+1]){
                     pomocna=scores[j];
                     scores[j]=scores[j+1];
                     scores[j+1]=pomocna;

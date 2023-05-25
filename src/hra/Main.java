@@ -20,6 +20,7 @@ public class Main {
         //tvorba hrace a mapy
         Player player = new Player(checkinputvalueforname,5,0);
         Map firstmap = new Map(20,7,25);
+        File scores=new File("Score.txt");
 
         //vypis hrdiny
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
@@ -73,8 +74,8 @@ public class Main {
             for(int i=0;i<20;i++){
                 System.out.println();
             }
+            
         }while(x!='0');
-
 
     }
     public static void walk(char map[][], int position[], char x) {
