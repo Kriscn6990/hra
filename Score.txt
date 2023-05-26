@@ -1,6 +1,15 @@
+700;t
+700;spider
 200;batman
 200;Karel
+150;man
 150;Tom
 100;Kriscn
+50;s
+50;jan
 50;Kikin
+0;d
+0;a
+0;testovaci
+0;t
 0;Pavel

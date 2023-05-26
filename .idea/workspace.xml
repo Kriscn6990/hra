@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b041c4a-36e3-418a-9138-bd50eefe7a2d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JNativeHook-2.2.2.x86_64.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jnativehook-2.2.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hra/GlobalKeyListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Score.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Score.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hra.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hra.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hra/Fight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Fight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hra/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hra/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Map.java" afterDir="false" />
     </list>
     <list id="1ccc28e9-4c49-45f4-8c5f-afb435d04854" name="Changes by Kubajz" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,19 +42,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kubajz/Documents/GitHub/hra/jnativehook-2.2.2.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hra.Main" />

@@ -75,6 +75,7 @@ public class Map {
             for (int j = 0; j < col; j++) {
                 System.out.print(arrayMap[i][j]);
             }
+            if(i == 0) System.out.print("\t Legend: player [#], item [?], wall [|]");
             System.out.println();
         }
     }
@@ -85,12 +86,15 @@ public class Map {
         int rw,cl;
         while (count != 0)
         {
+
             rw = generate.nextInt(1,row-1);
             cl = generate.nextInt(1,col-1);
+
             if(arrayMap[rw][cl] == '.'){
                 arrayMap[rw][cl] = '?';
+                count--;
             }
-            count--;
+
         }
         return arrayMap;
     }

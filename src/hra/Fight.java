@@ -12,7 +12,9 @@ public class Fight {
         System.out.println("1. Utok");
         System.out.println("2. Silnejsi utok (mensi sance ze se provede)");
         fightExecute(player,enemy);
-        return input.nextInt();
+        input.reset();
+        System.out.println("toto cte scanner z konzole: " + input.nextLine());
+        return 1;
     }
     public void fightExecute(Player player,Enemies enemies){
         int playerHealth = player.getHp();
@@ -23,9 +25,7 @@ public class Fight {
             case "Stredni":{player.setScore(player.getScore()+100);}break;
             case "Tezky":{player.setScore(player.getScore()+150);}
         }
-
         player.setHp(playerHealth-enemyAttack);
-
     }
 
 

@@ -1,12 +1,28 @@
 package hra;
 
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NativeHookException {
+        try {
+            GlobalScreen.registerNativeHook();
+        }
+        catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+
+            System.exit(1);
+        }
         String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
         Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
@@ -18,8 +34,8 @@ public class Main {
         checkinputvalueforname = input.nextLine();
 
         //tvorba hrace a mapy
-        Player player = new Player(checkinputvalueforname,1);
-        Map firstmap = new Map(20);
+        Player player = new Player(checkinputvalueforname,10);
+        Map firstmap = new Map(10);
 
         //vypis hrdiny
         String asciiImagespider = readASCIIImage("ascii_art_spider.txt");
@@ -49,13 +65,15 @@ public class Main {
             if(player.getHp() != 0) {
                 showplayerinfo(player.getHp(), player.getName(), player.getScore());
                 firstmap.showMap();
+
                 for (int i = 0; i < firstmap.getHp().length; i++) {
                     if (onItem(position, firstmap.getHp()[i].getItemPosition())) {
                         System.out.println("Byl ziskan item");
                         System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() + " \u2665");
                         player.setHp(player.getHp() + firstmap.getHp()[i].getCountOfHealthToAdd());
                         int[] changePos = {100, 100};
-                        firstmap.getHp()[i].setItemPosition(changePos);
+                        firstmap.getHp()[i].setItemPosition(changePos);//presunuti itemu na nedosazitelnou pozici
+                        firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
                     }
                 }
                 for (int i = 0; i < firstmap.getEnemies().length; i++) {
@@ -72,12 +90,16 @@ public class Main {
                         }
                         int[] changePos = {100, 100};
                         firstmap.getEnemies()[i].setItemPosition(changePos);
+                        firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
                     }
                 }
                 if(player.getHp()!=0) {
                     System.out.println("Pohyb: WASD/wasd");
                     System.out.println("Konec: 0");
-                    x = input.next().charAt(0);
+                    System.out.println("Pocet zbyvajicich itemu v mape:" + firstmap.getCountOfmarks());
+                    x = listenforkey();//metoda pro cteni bez enteru
+
+                    System.out.println(x);
                     walk(firstmap.getArrayMap(), position, x);
                     for (int i = 0; i < 20; i++) {
                         System.out.println();
@@ -88,12 +110,11 @@ public class Main {
                 x = '0';
                 System.out.println("Score: " + player.getScore());
             }
-        }while(x!='0');
+        }while(x!='0' && firstmap.getCountOfmarks() != 0);
 
         scores.writeScore(player.getScore(),player.getName());
         System.out.println("Scores of people:");
         scores.readScore();
-
     }
     public static void walk(char map[][], int position[], char x) {
         int row = position[0];
@@ -171,5 +192,21 @@ public class Main {
             e.printStackTrace();
         }
         return null;
+    }
+    private static char listenforkey(){
+        GlobalKeyListener listener = new GlobalKeyListener();
+        try {
+            GlobalScreen.addNativeKeyListener(listener);
+            // Wait for a single key press
+            synchronized (listener) {
+                listener.wait();
+            }
+            GlobalScreen.removeNativeKeyListener(listener);
+        } catch ( InterruptedException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+            System.exit(1);
+        }
+        return listener.getPressedKey().charAt(0);
     }
 }
