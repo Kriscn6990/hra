@@ -14,6 +14,10 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 public class Main {
     public static void main(String[] args) throws NativeHookException {
+        String redColor = "\u001B[31m";
+
+        // ANSI escape sequence to reset the color
+        String resetColor = "\u001B[0m";
         try {
             GlobalScreen.registerNativeHook();
         }
@@ -32,9 +36,11 @@ public class Main {
         String superhero=input.nextLine();
         System.out.println("Write your nickname:");
         checkinputvalueforname = input.nextLine();
-
+        System.out.println(redColor + "For better functionality and performance, please don't write into the commandline" + resetColor);
+        System.out.println("press any key to continue...");
+        input.nextLine();
         //tvorba hrace a mapy
-        Player player = new Player(checkinputvalueforname,10);
+        Player player = new Player(checkinputvalueforname,10,1);
         Map firstmap = new Map(10);
 
         //vypis hrdiny
@@ -48,8 +54,9 @@ public class Main {
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;
+        int [] lastposition = {1,1};
         char x =' ';
-        //firstmap.createMap();
+        //firstmap.createMap(); generace mapy
         if(superhero.equals("batman")){
             System.out.println(asciiImagebatman);
         }
@@ -62,8 +69,8 @@ public class Main {
         firstmap.createMapByString(asciiMap);
         //mapa
         do{
-            if(player.getHp() != 0) {
-                showplayerinfo(player.getHp(), player.getName(), player.getScore());
+            if(player.getHp() > 0) {
+                showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack());
                 firstmap.showMap();
 
                 for (int i = 0; i < firstmap.getHp().length; i++) {
@@ -77,41 +84,55 @@ public class Main {
                     }
                 }
                 for (int i = 0; i < firstmap.getEnemies().length; i++) {
+                    int figtresult;
                     if (onItem(position, firstmap.getEnemies()[i].getItemPosition())) {
                         System.out.println(asciiImageGarfield);
                         Fight fight = new Fight();
-                        showEnemyInfo(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName());
-                        if (fight.fightMenu(player, firstmap.getEnemies()[i]) == 1) {
-
+                        figtresult = fight.begin(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName(),player, firstmap.getEnemies()[i]);
+                        if(figtresult == 2) {
+                            char[][] Editedmap = firstmap.getArrayMap();
+                            Editedmap[firstmap.getEnemies()[i].getItemPosition()[0]][firstmap.getEnemies()[i].getItemPosition()[1]] = '?';
+                            Editedmap[lastposition[0]][lastposition[1]] = '#';
+                            position = lastposition.clone();
+                            firstmap.setArrayMap(Editedmap);
+                            //pokud hrac zada moznost 3, utekl
                         }
-                        if(player.getHp()!=0) {
-                            showplayerinfo(player.getHp(), player.getName(), player.getScore());
+                        //showEnemyInfo(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName());
+                        if(player.getHp()>0) {
+                            if(player.getAttack()!=3 && firstmap.getEnemies()[i].getHp() <= 0)player.setAttack(player.getAttack()+1);
+                            showplayerinfo(player.getHp(), player.getName(), player.getScore(),player.getAttack());
                             firstmap.showMap();
                         }
-                        int[] changePos = {100, 100};
-                        firstmap.getEnemies()[i].setItemPosition(changePos);
-                        firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
+                        if (figtresult != 2) {
+                            int[] changePos = {100, 100};
+                            firstmap.getEnemies()[i].setItemPosition(changePos);
+                            firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
+                        }
+
                     }
                 }
-                if(player.getHp()!=0) {
+                if(player.getHp()>0) {
                     System.out.println("Pohyb: WASD/wasd");
                     System.out.println("Konec: 0");
                     System.out.println("Pocet zbyvajicich itemu v mape:" + firstmap.getCountOfmarks());
                     x = listenforkey();//metoda pro cteni bez enteru
-
-                    System.out.println(x);
+                    lastposition = position.clone();
                     walk(firstmap.getArrayMap(), position, x);
                     for (int i = 0; i < 20; i++) {
                         System.out.println();
                     }
                 }
-            }else {
-                System.out.println("You died");
+            } else {
                 x = '0';
-                System.out.println("Score: " + player.getScore());
             }
         }while(x!='0' && firstmap.getCountOfmarks() != 0);
-
+        if(firstmap.getCountOfmarks() == 0) {
+            System.out.println("You have won!");
+        }
+        else {
+            System.out.println(redColor +"you died game over" + resetColor);
+        }
+        System.out.println("Score: " + player.getScore());
         scores.writeScore(player.getScore(),player.getName());
         System.out.println("Scores of people:");
         scores.readScore();
@@ -138,11 +159,11 @@ public class Main {
         }
     }
     //show hp
-    public static void showplayerinfo(int hp,String name,int score){
+    public static void showplayerinfo(int hp,String name,int score,int attack){
         System.out.println("Playerinfo");
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.print("-");
-            if(i==59) System.out.println();
+            if(i==99) System.out.println();
         }
 
         System.out.print("HP " + hp);
@@ -152,28 +173,20 @@ public class Main {
 
         }
         System.out.print("]");
+        System.out.print("\tStrength " + attack);
+        System.out.print("[");
+        for (int i = 0; i < attack; i++) {
+            System.out.print("\u2694");
+
+        }
+        System.out.print("]");
         System.out.print("\tSuperHero -> " + name + "\t");
         System.out.println("\tPlayerscore -> " + score + "\t");
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.print("-");
-            if(i==59) System.out.println();
+            if(i==99) System.out.println();
         }
 
-    }
-
-    public static void showEnemyInfo(int hp,int attack,String name){
-        System.out.println("Nepritel");
-        //System.out.println(name);
-        System.out.print("HP [");
-        for(int i=0;i<hp;i++){
-            System.out.print("\u2665");
-        }
-        System.out.println("]");
-        System.out.print("Utok [");
-        for (int i=0;i<attack;i++){
-            System.out.print("\u2694");
-        }
-        System.out.println("]");
     }
 
     public static boolean onItem(int [] position, int [] itemPosition){

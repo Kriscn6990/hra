@@ -4,11 +4,20 @@ public class Player {
     private static int score=0;
     private String name;
     private int hp;
+    private int attack;
 
-    public Player(String name, int hp) {
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public Player(String name, int hp,int attack) {
         this.name = name;
         this.hp = hp;
-
+        this.attack = attack;
     }
 
     public int getScore() {

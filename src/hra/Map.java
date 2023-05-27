@@ -133,7 +133,7 @@ public class Map {
             enemies[i]=new Enemies();
             enemies[i].setItemPosition(positionOfEnemies[i]);
             enemies[i].setHp(generator.nextInt(1,6));
-            enemies[i].setAttack(generator.nextInt(1,2));
+            enemies[i].setAttack(generator.nextInt(1,4));
             if(enemies[i].getHp()<=2&&enemies[i].getAttack()<=1){
                 enemies[i].setDifficulty("Lehky");
             }
