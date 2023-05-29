@@ -137,7 +137,7 @@ public class Map {
             if(enemies[i].getHp()<=2&&enemies[i].getAttack()<=1){
                 enemies[i].setDifficulty("Lehky");
             }
-            else if ((enemies[i].getHp()>2&&enemies[i].getHp()<=4)||(enemies[i].getHp()>4&&enemies[i].getAttack()==1)){
+            else if ((enemies[i].getHp()>=2&&enemies[i].getHp()<=4)||(enemies[i].getHp()>4&&enemies[i].getAttack()==1)){
                 enemies[i].setDifficulty("Stredni");
             }
             else{
