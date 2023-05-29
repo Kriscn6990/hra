@@ -12,7 +12,7 @@ import com.github.kwhat.jnativehook.NativeHookException;
 
 
 public class Main {
-    public static void main(String[] args) throws NativeHookException {
+    public static void main(String[] args) {
         String redColor = "\u001B[31m";
 
         // ANSI escape sequence to reset the color
@@ -29,14 +29,14 @@ public class Main {
         String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
         Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
-        System.out.println("Scores of people:");
+        System.out.println("Skore lidi:");
         scores.readScore();
-        System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
+        System.out.println("Vitejte ve hre superhero\n prosim zvolte si sveho hrdinu\n batman nebo spiderman:");
         String superhero=input.nextLine();
-        System.out.println("Write your nickname:");
+        System.out.println("Napiste svoji prezdivku:");
         checkinputvalueforname = input.nextLine();
-        System.out.println(redColor + "For better functionality and performance, please don't write into the commandline" + resetColor);
-        System.out.println("press any key to continue...");
+        System.out.println(redColor + "Pro lepsi funkcnost a zazitek nepiste do prikazoveho radku" + resetColor);
+        System.out.println("stisknete libovolnou klavesu...");
         input.nextLine();
         //tvorba hrace a mapy
         Player player = new Player(checkinputvalueforname,10,1);
@@ -122,28 +122,24 @@ public class Main {
                     }
                 }
                 if(player.getHp()>0&&firstmap.getCountOfmarks()==0){
-                    System.out.println("Byl jste presunut do dalsi mapyb");
+                    System.out.println("Byl jste presunut do dalsi mapy");
                     position[0]=1;
                     position[1]=1;
                     lastposition=position.clone();
+                    firstmap.setCountOfmarks(10);
                     firstmap.createMapByString(asciiMap);
                 }
             } else {
                 x = '0';
             }
         }while(x!='0');
-        if(firstmap.getCountOfmarks() == 0) {
-            System.out.println("You have won!");
-        }
-        else {
-            System.out.println(redColor +"you died game over" + resetColor);
-        }
-        System.out.println("Score: " + player.getScore());
+        System.out.println(redColor +"Zemrel jste" + resetColor);
+        System.out.println("Skore: " + player.getScore());
         scores.writeScore(player.getScore(),player.getName());
-        System.out.println("Scores of people:");
+        System.out.println("Skore lidi:");
         scores.readScore();
     }
-    public static void walk(char map[][], int position[], char x) {
+    public static void walk(char [][] map, int [] position, char x) {
         int row = position[0];
         int column = position[1];
         if ((x == 'W' || x == 'w')&&(map[row-1][column]=='.'||map[row-1][column]=='?')) {
@@ -166,7 +162,7 @@ public class Main {
     }
     //show hp
     public static void showplayerinfo(int hp,String name,int score,int attack){
-        System.out.println("Playerinfo");
+        System.out.println("Hracska statistika");
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
             if(i==99) System.out.println();
@@ -179,15 +175,15 @@ public class Main {
 
         }
         System.out.print("]");
-        System.out.print("\tStrength " + attack);
+        System.out.print("\tSila " + attack);
         System.out.print("[");
         for (int i = 0; i < attack; i++) {
             System.out.print("\u2694");
 
         }
         System.out.print("]");
-        System.out.print("\tSuperHero -> " + name + "\t");
-        System.out.println("\tPlayerscore -> " + score + "\t");
+        System.out.print("\tSuper hrdina -> " + name + "\t");
+        System.out.println("\tSkore -> " + score + "\t");
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
             if(i==99) System.out.println();
@@ -196,12 +192,7 @@ public class Main {
     }
 
     public static boolean onItem(int [] position, int [] itemPosition){
-        if(position[0]==itemPosition[0]&&position[1]==itemPosition[1]){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return position[0] == itemPosition[0] && position[1] == itemPosition[1];
     }
     private static String readASCIIImage(String filePath) {
         try {

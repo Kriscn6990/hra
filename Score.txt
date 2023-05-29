@@ -1,4 +1,6 @@
+1200;ff
 950;fat
+800;tt
 800;spidez
 700;t
 700;spider
@@ -39,6 +41,7 @@
 50;s
 50;jan
 50;Kikin
+0;kiki
 0;gg
 0;man
 0;man

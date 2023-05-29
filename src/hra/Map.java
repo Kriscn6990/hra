@@ -75,7 +75,7 @@ public class Map {
             for (int j = 0; j < col; j++) {
                 System.out.print(arrayMap[i][j]);
             }
-            if(i == 0) System.out.print("\t Legend: player [#], item [?], wall [|]");
+            if(i == 0) System.out.print("\t Legenda: Hrac [#], predmet [?], stena [|]");
             System.out.println();
         }
     }
