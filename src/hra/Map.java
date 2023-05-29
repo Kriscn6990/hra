@@ -108,7 +108,7 @@ public class Map {
         for(int i=0;i<row;i++){
             for(int j=0;j<col;j++){
                 if(arrayMap[i][j]=='?'){
-                    if(generator.nextInt(0,3)==0){
+                    if(generator.nextInt(0,3)>1){
                         positionOfHp[countHp][0]=i;
                         positionOfHp[countHp][1]=j;
                         countHp++;
@@ -133,7 +133,7 @@ public class Map {
             enemies[i]=new Enemies();
             enemies[i].setItemPosition(positionOfEnemies[i]);
             enemies[i].setHp(generator.nextInt(1,6));
-            enemies[i].setAttack(generator.nextInt(1,4));
+            enemies[i].setAttack(generator.nextInt(1,3));
             if(enemies[i].getHp()<=2&&enemies[i].getAttack()<=1){
                 enemies[i].setDifficulty("Lehky");
             }

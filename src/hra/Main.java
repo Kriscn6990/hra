@@ -1,6 +1,6 @@
 package hra;
 
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
+
 
 public class Main {
     public static void main(String[] args) throws NativeHookException {
@@ -122,10 +121,17 @@ public class Main {
                         System.out.println();
                     }
                 }
+                if(player.getHp()>0&&firstmap.getCountOfmarks()==0){
+                    System.out.println("Byl jste presunut do dalsi mapyb");
+                    position[0]=1;
+                    position[1]=1;
+                    lastposition=position.clone();
+                    firstmap.createMapByString(asciiMap);
+                }
             } else {
                 x = '0';
             }
-        }while(x!='0' && firstmap.getCountOfmarks() != 0);
+        }while(x!='0');
         if(firstmap.getCountOfmarks() == 0) {
             System.out.println("You have won!");
         }
