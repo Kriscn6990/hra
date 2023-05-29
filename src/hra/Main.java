@@ -50,6 +50,7 @@ public class Main {
         String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
         String asciiMap= readASCIIImage("Map.txt");
         String asciiMap2= readASCIIImage("Map2.txt");
+        String asciiMap3=readASCIIImage("Map3.txt");
         String [] asciiMaps={asciiMap,asciiMap2};
 
 
