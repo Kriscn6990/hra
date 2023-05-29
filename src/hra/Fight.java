@@ -30,30 +30,53 @@ public class Fight {
         if (player.getHp() > 0) return 1;
         else return 0;
     }
-    public void showcombatInfo(Enemies enemy,Player player){
-        System.out.print("Nepritel\t");
+    public static void showcombatInfo(Enemies enemy,Player player){
+        System.out.print("Nepritel");
+        System.out.println("\t vs \t" + player.getName());
         System.out.print("HP   [");
         for(int i=0;i<enemy.getHp();i++){
             System.out.print("\u2665");
         }
-        System.out.print("] ");
+        System.out.print("]");
+        int lengthforhp,lengthforattack;
+
+        if(enemy.getAttack() < enemy.getHp()){
+            lengthforattack = enemy.getHp()+1;
+            lengthforhp = enemy.getAttack();
+        }
+        else {
+            lengthforattack = enemy.getHp();
+            lengthforhp = enemy.getAttack()+1;
+        }
+
+        for(int i=0;i<lengthforhp ;i++){
+            System.out.print(" ");
+        }
+
+
+        System.out.print("HP[");
+        for(int i=0;i<player.getHp();i++){
+            System.out.print("\u2665");
+        }
+        System.out.println("]");
+
         System.out.print("Utok [");
         for (int i=0;i<enemy.getAttack();i++){
             System.out.print("\u2694");
         }
         System.out.print("]");
-        System.out.print("\t vs \t" + player.getName()+"\t");
-        System.out.print("HP[");
-        for(int i=0;i<player.getHp();i++){
-            System.out.print("\u2665");
+
+        for(int i=0;i< lengthforattack;i++){
+            System.out.print(" ");
         }
-        System.out.print("] ");
+
         System.out.print("Utok[");
         for (int i=0;i<player.getAttack();i++){
             System.out.print("\u2694");
         }
         System.out.println("]");
     }
+
 
     public char fightMenu(Player player, Enemies enemy){
         char x;
