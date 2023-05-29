@@ -5,6 +5,7 @@ package hra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
@@ -48,8 +49,11 @@ public class Main {
         String asciiImageGarfield = readASCIIImage("garfield.txt");
         String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
         String asciiMap= readASCIIImage("Map.txt");
+        String asciiMap2= readASCIIImage("Map2.txt");
+        String [] asciiMaps={asciiMap,asciiMap2};
 
 
+        Random generator=new Random();
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;
@@ -65,7 +69,8 @@ public class Main {
         else{
             System.out.println(asciiImageDefault);
         }
-        firstmap.createMapByString(asciiMap);
+
+        firstmap.createMapByString(asciiMaps[generator.nextInt(asciiMaps.length)]);
         //mapa
         do{
             if(player.getHp() > 0) {
