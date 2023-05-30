@@ -5,6 +5,7 @@ package hra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
@@ -12,11 +13,13 @@ import com.github.kwhat.jnativehook.NativeHookException;
 
 
 public class Main {
-    public static void main(String[] args) throws NativeHookException {
+    public static void main(String[] args) {
         String redColor = "\u001B[31m";
 
         // ANSI escape sequence to reset the color
         String resetColor = "\u001B[0m";
+        String ANSI_BOLD = "\033[1m";
+        String ANSI_RESET = "\033[0m";
         try {
             GlobalScreen.registerNativeHook();
         }
@@ -29,14 +32,14 @@ public class Main {
         String checkinputvalueforname;//ziskej jmeno pro hrdinu
         Scanner input=new Scanner(System.in);
         Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
-        System.out.println("Scores of people:");
+        System.out.println("Skore lidi:");
         scores.readScore();
-        System.out.println("Welcome to this superhero game\n please choose your superhero\n batman or spiderman:");
+        System.out.println("Vitejte ve hre superhero\n prosim zvolte si sveho hrdinu\n batman, spiderman nebo superman:");
         String superhero=input.nextLine();
-        System.out.println("Write your nickname:");
+        System.out.println("Napiste svoji prezdivku:");
         checkinputvalueforname = input.nextLine();
-        System.out.println(redColor + "For better functionality and performance, please don't write into the commandline" + resetColor);
-        System.out.println("press any key to continue...");
+        System.out.println(redColor + "Pro lepsi funkcnost a zazitek nepiste do prikazoveho radku" + resetColor);
+        System.out.println("stisknete libovolnou klavesu...");
         input.nextLine();
         //tvorba hrace a mapy
         Player player = new Player(checkinputvalueforname,10,1);
@@ -47,9 +50,15 @@ public class Main {
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
         String asciiImageGarfield = readASCIIImage("garfield.txt");
         String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
+        String asciiImagesuperman=readASCIIImage("ascii-art_superman.txt");
         String asciiMap= readASCIIImage("Map.txt");
+        String asciiMap2= readASCIIImage("Map2.txt");
+        String asciiMap3=readASCIIImage("Map3.txt");
+        String asciiMap4=readASCIIImage("Map4.txt");
+        String [] asciiMaps={asciiMap,asciiMap2,asciiMap3,asciiMap4};
 
 
+        Random generator=new Random();
         int [] position=new int[2];
         position[0]=1;
         position[1]=1;
@@ -62,20 +71,30 @@ public class Main {
         else if (superhero.equals("spiderman")) {
             System.out.println(asciiImagespider);
         }
+        else if (superhero.equals("superman")) {
+            System.out.println(asciiImagesuperman);
+        }
         else{
             System.out.println(asciiImageDefault);
         }
-        firstmap.createMapByString(asciiMap);
+
+        firstmap.createMapByString(asciiMaps[generator.nextInt(asciiMaps.length)]);
         //mapa
         do{
             if(player.getHp() > 0) {
-                showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack());
+                showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack(), player.isSword());
                 firstmap.showMap();
-
+                if(onItem(position,firstmap.getSword().getItemPosition())) {
+                    System.out.println(ANSI_BOLD+"Byl ziskan mec"+ANSI_RESET);
+                    player.setSword(true);
+                    int[] changePos = {100, 100};
+                    firstmap.getSword().setItemPosition(changePos);
+                    firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
+                }
                 for (int i = 0; i < firstmap.getHp().length; i++) {
                     if (onItem(position, firstmap.getHp()[i].getItemPosition())) {
-                        System.out.println("Byl ziskan item");
-                        System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() + " \u2665");
+                        System.out.println(ANSI_BOLD+"Byl ziskan item"+ANSI_RESET);
+                        System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() +redColor+ " \u2665"+resetColor);
                         player.setHp(player.getHp() + firstmap.getHp()[i].getCountOfHealthToAdd());
                         int[] changePos = {100, 100};
                         firstmap.getHp()[i].setItemPosition(changePos);//presunuti itemu na nedosazitelnou pozici
@@ -99,7 +118,7 @@ public class Main {
                         //showEnemyInfo(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName());
                         if(player.getHp()>0) {
                             if(player.getAttack()!=3 && firstmap.getEnemies()[i].getHp() <= 0)player.setAttack(player.getAttack()+1);
-                            showplayerinfo(player.getHp(), player.getName(), player.getScore(),player.getAttack());
+                            showplayerinfo(player.getHp(), player.getName(), player.getScore(),player.getAttack(), player.isSword());
                             firstmap.showMap();
                         }
                         if (figtresult != 2) {
@@ -122,28 +141,24 @@ public class Main {
                     }
                 }
                 if(player.getHp()>0&&firstmap.getCountOfmarks()==0){
-                    System.out.println("Byl jste presunut do dalsi mapyb");
+                    System.out.println(ANSI_BOLD+"Byl jste presunut do dalsi mapy"+ANSI_RESET);
                     position[0]=1;
                     position[1]=1;
                     lastposition=position.clone();
+                    firstmap.setCountOfmarks(10);
                     firstmap.createMapByString(asciiMap);
                 }
             } else {
                 x = '0';
             }
         }while(x!='0');
-        if(firstmap.getCountOfmarks() == 0) {
-            System.out.println("You have won!");
-        }
-        else {
-            System.out.println(redColor +"you died game over" + resetColor);
-        }
-        System.out.println("Score: " + player.getScore());
+        System.out.println(redColor +"Zemrel jste" + resetColor);
+        System.out.println("Skore: " + player.getScore());
         scores.writeScore(player.getScore(),player.getName());
-        System.out.println("Scores of people:");
+        System.out.println("Skore lidi:");
         scores.readScore();
     }
-    public static void walk(char map[][], int position[], char x) {
+    public static void walk(char [][] map, int [] position, char x) {
         int row = position[0];
         int column = position[1];
         if ((x == 'W' || x == 'w')&&(map[row-1][column]=='.'||map[row-1][column]=='?')) {
@@ -165,8 +180,12 @@ public class Main {
         }
     }
     //show hp
-    public static void showplayerinfo(int hp,String name,int score,int attack){
-        System.out.println("Playerinfo");
+    public static void showplayerinfo(int hp,String name,int score,int attack,boolean sword){
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        String blueColor = "\033[0;34m";
+
+        System.out.println("Hracska statistika");
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
             if(i==99) System.out.println();
@@ -175,19 +194,21 @@ public class Main {
         System.out.print("HP " + hp);
         System.out.print("[");
         for (int i = 0; i < hp; i++) {
-            System.out.print("\u2665");
+            System.out.print(redColor+"\u2665"+resetColor);
 
         }
         System.out.print("]");
-        System.out.print("\tStrength " + attack);
+        System.out.print("\tSila " + attack);
         System.out.print("[");
         for (int i = 0; i < attack; i++) {
-            System.out.print("\u2694");
+            System.out.print(blueColor+"\u2694"+resetColor);
 
         }
         System.out.print("]");
-        System.out.print("\tSuperHero -> " + name + "\t");
-        System.out.println("\tPlayerscore -> " + score + "\t");
+        System.out.print("\tSuper hrdina -> " + name + "\t");
+        System.out.print("\tSkore -> " + score + "\t");
+        String text = (sword)? "Mas mec" : "Nemas mec";
+        System.out.println(text);
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
             if(i==99) System.out.println();
@@ -196,12 +217,7 @@ public class Main {
     }
 
     public static boolean onItem(int [] position, int [] itemPosition){
-        if(position[0]==itemPosition[0]&&position[1]==itemPosition[1]){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return position[0] == itemPosition[0] && position[1] == itemPosition[1];
     }
     private static String readASCIIImage(String filePath) {
         try {

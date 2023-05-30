@@ -5,7 +5,7 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import java.util.Scanner;
 
 public class Fight {
-    public static int begin(int hp,int attack,String name,Player player,Enemies enemy){
+    public int begin(int hp,int attack,String name,Player player,Enemies enemy){
         char t;
         while (enemy.getHp() > 0 && player.getHp() > 0) {
             showcombatInfo(enemy,player);
@@ -31,13 +31,16 @@ public class Fight {
         else return 0;
     }
     public static void showcombatInfo(Enemies enemy,Player player){
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        String blueColor = "\033[0;34m";
         System.out.print("Nepritel");
         System.out.println("\t vs \t" + player.getName());
-        System.out.print("HP   [");
+        System.out.print("HP   ["+redColor);
         for(int i=0;i<enemy.getHp();i++){
             System.out.print("\u2665");
         }
-        System.out.print("]");
+        System.out.print(resetColor+"]");
         int lengthforhp,lengthforattack;
 
         if(enemy.getAttack() < enemy.getHp()){
@@ -54,51 +57,64 @@ public class Fight {
         }
 
 
-        System.out.print("HP[");
+        System.out.print("HP["+redColor);
         for(int i=0;i<player.getHp();i++){
             System.out.print("\u2665");
         }
-        System.out.println("]");
+        System.out.println(resetColor+"]");
 
-        System.out.print("Utok [");
+        System.out.print("Utok ["+blueColor);
         for (int i=0;i<enemy.getAttack();i++){
             System.out.print("\u2694");
         }
-        System.out.print("]");
+        System.out.print(resetColor+"]");
 
         for(int i=0;i< lengthforattack;i++){
             System.out.print(" ");
         }
 
-        System.out.print("Utok[");
+        System.out.print("Utok["+blueColor);
         for (int i=0;i<player.getAttack();i++){
             System.out.print("\u2694");
         }
-        System.out.println("]");
+        System.out.println(resetColor+"]");
     }
 
-    public static char fightMenu(Player player, Enemies enemy){
+
+    public char fightMenu(Player player, Enemies enemy){
         char x;
         System.out.println(enemy.getDifficulty());
         Scanner input=new Scanner(System.in);
         System.out.println("Volby:");
         System.out.println("1. Utok");
         System.out.println("2. Utect");
+        if(player.isSword()) System.out.println("3. Pouzit mec");
         x = listenforkey();
-        if(x == '1')
-        fightExecute(player,enemy);
+        if(x == '1' || x == '3')
+        fightExecute(player,enemy,x);
         System.out.println();
         return x;
     }
-    public static void fightExecute(Player player, Enemies enemies){
+    public void fightExecute(Player player, Enemies enemies, char option){
         int playerHealth = player.getHp();
         int enemyHP = enemies.getHp();
         int enemyAttack = enemies.getAttack();
         int playerAttack = player.getAttack();
-        player.setHp(playerHealth-enemyAttack);
-        enemies.setHp(enemies.getHp()-playerAttack);
+        switch (option) {
+            case '1':{
+                System.out.println("vas hp po souboji " + (playerHealth-enemyAttack));
+                player.setHp(playerHealth-enemyAttack);
+                enemies.setHp(enemies.getHp()-playerAttack);
+            }
+            break;
+            case '3':{
+                player.setSword(false);
+                enemies.setHp(0) ;
+            }
+        }
+
     }
-    private static char listenforkey(){
+    private char listenforkey(){
         GlobalKeyListener listener = new GlobalKeyListener();
         try {
             GlobalScreen.addNativeKeyListener(listener);
