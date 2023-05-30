@@ -32,7 +32,7 @@ public class Main {
         Kikinovysoubory scores = new Kikinovysoubory("Score.txt");
         System.out.println("Skore lidi:");
         scores.readScore();
-        System.out.println("Vitejte ve hre superhero\n prosim zvolte si sveho hrdinu\n batman nebo spiderman:");
+        System.out.println("Vitejte ve hre superhero\n prosim zvolte si sveho hrdinu\n batman, spiderman nebo superman:");
         String superhero=input.nextLine();
         System.out.println("Napiste svoji prezdivku:");
         checkinputvalueforname = input.nextLine();
@@ -48,6 +48,7 @@ public class Main {
         String asciiImagebatman = readASCIIImage("ascii_art.txt");
         String asciiImageGarfield = readASCIIImage("garfield.txt");
         String asciiImageDefault = readASCIIImage("ascii-art_default.txt");
+        String asciiImagesuperman=readASCIIImage("ascii-art_superman.txt");
         String asciiMap= readASCIIImage("Map.txt");
         String asciiMap2= readASCIIImage("Map2.txt");
         String asciiMap3=readASCIIImage("Map3.txt");
@@ -67,6 +68,9 @@ public class Main {
         }
         else if (superhero.equals("spiderman")) {
             System.out.println(asciiImagespider);
+        }
+        else if (superhero.equals("superman")) {
+            System.out.println(asciiImagesuperman);
         }
         else{
             System.out.println(asciiImageDefault);
