@@ -51,7 +51,8 @@ public class Main {
         String asciiMap= readASCIIImage("Map.txt");
         String asciiMap2= readASCIIImage("Map2.txt");
         String asciiMap3=readASCIIImage("Map3.txt");
-        String [] asciiMaps={asciiMap,asciiMap2,asciiMap3};
+        String asciiMap4=readASCIIImage("Map4.txt");
+        String [] asciiMaps={asciiMap,asciiMap2,asciiMap3,asciiMap4};
 
 
         Random generator=new Random();
