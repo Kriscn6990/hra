@@ -6,6 +6,16 @@ public class Player {
     private int hp;
     private int attack;
 
+    private boolean sword = false;
+
+    public boolean isSword() {
+        return sword;
+    }
+
+    public void setSword(boolean sword) {
+        this.sword = sword;
+    }
+
     public int getAttack() {
         return attack;
     }

@@ -85,19 +85,31 @@ public class Fight {
         System.out.println("Volby:");
         System.out.println("1. Utok");
         System.out.println("2. Utect");
+        if(player.isSword()) System.out.println("3. Pouzit mec");
         x = listenforkey();
-        if(x == '1')
-        fightExecute(player,enemy);
+        if(x == '1' || x == '3')
+        fightExecute(player,enemy,x);
         System.out.println();
         return x;
     }
-    public void fightExecute(Player player, Enemies enemies){
+    public void fightExecute(Player player, Enemies enemies, char option){
         int playerHealth = player.getHp();
         int enemyHP = enemies.getHp();
         int enemyAttack = enemies.getAttack();
         int playerAttack = player.getAttack();
-        player.setHp(playerHealth-enemyAttack);
-        enemies.setHp(enemies.getHp()-playerAttack);
+        switch (option) {
+            case '1':{
+                System.out.println("vas hp po souboji " + (playerHealth-enemyAttack));
+                player.setHp(playerHealth-enemyAttack);
+                enemies.setHp(enemies.getHp()-playerAttack);
+            }
+            break;
+            case '3':{
+                player.setSword(false);
+                enemies.setHp(0) ;
+            }
+        }
+
     }
     private char listenforkey(){
         GlobalKeyListener listener = new GlobalKeyListener();

@@ -75,9 +75,15 @@ public class Main {
         //mapa
         do{
             if(player.getHp() > 0) {
-                showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack());
+                showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack(), player.isSword());
                 firstmap.showMap();
-
+                if(onItem(position,firstmap.getSword().getItemPosition())) {
+                    System.out.println("Byl ziskan mec");
+                    player.setSword(true);
+                    int[] changePos = {100, 100};
+                    firstmap.getSword().setItemPosition(changePos);
+                    firstmap.setCountOfmarks(firstmap.getCountOfmarks()-1);
+                }
                 for (int i = 0; i < firstmap.getHp().length; i++) {
                     if (onItem(position, firstmap.getHp()[i].getItemPosition())) {
                         System.out.println("Byl ziskan item");
@@ -105,7 +111,7 @@ public class Main {
                         //showEnemyInfo(firstmap.getEnemies()[i].getHp(), firstmap.getEnemies()[i].getAttack(), firstmap.getEnemies()[i].getName());
                         if(player.getHp()>0) {
                             if(player.getAttack()!=3 && firstmap.getEnemies()[i].getHp() <= 0)player.setAttack(player.getAttack()+1);
-                            showplayerinfo(player.getHp(), player.getName(), player.getScore(),player.getAttack());
+                            showplayerinfo(player.getHp(), player.getName(), player.getScore(),player.getAttack(), player.isSword());
                             firstmap.showMap();
                         }
                         if (figtresult != 2) {
@@ -167,7 +173,7 @@ public class Main {
         }
     }
     //show hp
-    public static void showplayerinfo(int hp,String name,int score,int attack){
+    public static void showplayerinfo(int hp,String name,int score,int attack,boolean sword){
         System.out.println("Hracska statistika");
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
@@ -189,7 +195,9 @@ public class Main {
         }
         System.out.print("]");
         System.out.print("\tSuper hrdina -> " + name + "\t");
-        System.out.println("\tSkore -> " + score + "\t");
+        System.out.print("\tSkore -> " + score + "\t");
+        String text = (sword)? "Mas mec" : "Nemas mec";
+        System.out.println(text);
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
             if(i==99) System.out.println();

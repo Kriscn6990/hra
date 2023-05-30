@@ -9,6 +9,15 @@ public class Map {
     private char[][] arrayMap;
     private Hp[] hp;
     private Enemies [] enemies;
+    private Sword sword;
+
+    public Sword getSword() {
+        return sword;
+    }
+
+    public void setSword(Sword sword) {
+        this.sword = sword;
+    }
 
     public char[][] getArrayMap() {
         return arrayMap;
@@ -103,12 +112,20 @@ public class Map {
         Random generator = new Random();
         int countHp=0;
         int countEnemies=0;
+        boolean issetSword = true;
         int [][] positionOfHp=new int[countQMarks][2];
         int [][] positionOfEnemies=new int[countQMarks][2];
+        int [] positionOfSword = new int[2];
+        int randomsword = generator.nextInt(countOfmarks);
         for(int i=0;i<row;i++){
             for(int j=0;j<col;j++){
                 if(arrayMap[i][j]=='?'){
-                    if(generator.nextInt(0,3)>1){
+                    if((countEnemies + countHp) == randomsword && issetSword){
+                        positionOfSword[0] = i;
+                        positionOfSword[1] = j;
+                    issetSword = false;
+                    }
+                    else if(generator.nextInt(0,3)>1){
                         positionOfHp[countHp][0]=i;
                         positionOfHp[countHp][1]=j;
                         countHp++;
@@ -123,7 +140,8 @@ public class Map {
         }
         hp=new Hp[countHp];
         enemies=new Enemies[countEnemies];
-
+        sword = new Sword();
+        sword.setItemPosition((positionOfSword));
         for(int i=0;i<countHp;i++){
             hp[i]=new Hp();
             hp[i].setItemPosition(positionOfHp[i]);
