@@ -150,7 +150,7 @@ public class Map {
         for(int i=0;i<countEnemies;i++){
             enemies[i]=new Enemies();
             enemies[i].setItemPosition(positionOfEnemies[i]);
-            enemies[i].setHp(generator.nextInt(1,6));
+            enemies[i].setHp(generator.nextInt(1,4));
             enemies[i].setAttack(generator.nextInt(1,3));
             if(enemies[i].getHp()<=2&&enemies[i].getAttack()<=1){
                 enemies[i].setDifficulty("Lehky");
