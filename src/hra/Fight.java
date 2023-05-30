@@ -31,13 +31,16 @@ public class Fight {
         else return 0;
     }
     public static void showcombatInfo(Enemies enemy,Player player){
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        String blueColor = "\033[0;34m";
         System.out.print("Nepritel");
         System.out.println("\t vs \t" + player.getName());
-        System.out.print("HP   [");
+        System.out.print("HP   ["+redColor);
         for(int i=0;i<enemy.getHp();i++){
             System.out.print("\u2665");
         }
-        System.out.print("]");
+        System.out.print(resetColor+"]");
         int lengthforhp,lengthforattack;
 
         if(enemy.getAttack() < enemy.getHp()){

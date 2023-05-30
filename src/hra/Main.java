@@ -18,6 +18,8 @@ public class Main {
 
         // ANSI escape sequence to reset the color
         String resetColor = "\u001B[0m";
+        String ANSI_BOLD = "\033[1m";
+        String ANSI_RESET = "\033[0m";
         try {
             GlobalScreen.registerNativeHook();
         }
@@ -83,7 +85,7 @@ public class Main {
                 showplayerinfo(player.getHp(), player.getName(), player.getScore(), player.getAttack(), player.isSword());
                 firstmap.showMap();
                 if(onItem(position,firstmap.getSword().getItemPosition())) {
-                    System.out.println("Byl ziskan mec");
+                    System.out.println(ANSI_BOLD+"Byl ziskan mec"+ANSI_RESET);
                     player.setSword(true);
                     int[] changePos = {100, 100};
                     firstmap.getSword().setItemPosition(changePos);
@@ -91,8 +93,8 @@ public class Main {
                 }
                 for (int i = 0; i < firstmap.getHp().length; i++) {
                     if (onItem(position, firstmap.getHp()[i].getItemPosition())) {
-                        System.out.println("Byl ziskan item");
-                        System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() + " \u2665");
+                        System.out.println(ANSI_BOLD+"Byl ziskan item"+ANSI_RESET);
+                        System.out.println("Pridava " + firstmap.getHp()[i].getCountOfHealthToAdd() +redColor+ " \u2665"+resetColor);
                         player.setHp(player.getHp() + firstmap.getHp()[i].getCountOfHealthToAdd());
                         int[] changePos = {100, 100};
                         firstmap.getHp()[i].setItemPosition(changePos);//presunuti itemu na nedosazitelnou pozici
@@ -179,6 +181,10 @@ public class Main {
     }
     //show hp
     public static void showplayerinfo(int hp,String name,int score,int attack,boolean sword){
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        String blueColor = "\033[0;34m";
+
         System.out.println("Hracska statistika");
         for (int i = 0; i < 100; i++) {
             System.out.print("-");
@@ -188,14 +194,14 @@ public class Main {
         System.out.print("HP " + hp);
         System.out.print("[");
         for (int i = 0; i < hp; i++) {
-            System.out.print("\u2665");
+            System.out.print(redColor+"\u2665"+resetColor);
 
         }
         System.out.print("]");
         System.out.print("\tSila " + attack);
         System.out.print("[");
         for (int i = 0; i < attack; i++) {
-            System.out.print("\u2694");
+            System.out.print(blueColor+"\u2694"+resetColor);
 
         }
         System.out.print("]");
