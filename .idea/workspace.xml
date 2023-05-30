@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b041c4a-36e3-418a-9138-bd50eefe7a2d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hra/Sword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Score.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Score.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Fight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Fight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hra/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hra/Player.java" afterDir="false" />
-    </list>
+    <list default="true" id="3b041c4a-36e3-418a-9138-bd50eefe7a2d" name="Changes" comment="" />
     <list id="1ccc28e9-4c49-45f4-8c5f-afb435d04854" name="Changes by Kubajz" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
