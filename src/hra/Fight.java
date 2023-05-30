@@ -57,27 +57,27 @@ public class Fight {
         }
 
 
-        System.out.print("HP[");
+        System.out.print("HP["+redColor);
         for(int i=0;i<player.getHp();i++){
             System.out.print("\u2665");
         }
-        System.out.println("]");
+        System.out.println(resetColor+"]");
 
-        System.out.print("Utok [");
+        System.out.print("Utok ["+blueColor);
         for (int i=0;i<enemy.getAttack();i++){
             System.out.print("\u2694");
         }
-        System.out.print("]");
+        System.out.print(resetColor+"]");
 
         for(int i=0;i< lengthforattack;i++){
             System.out.print(" ");
         }
 
-        System.out.print("Utok[");
+        System.out.print("Utok["+blueColor);
         for (int i=0;i<player.getAttack();i++){
             System.out.print("\u2694");
         }
-        System.out.println("]");
+        System.out.println(resetColor+"]");
     }
 
 

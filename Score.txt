@@ -1,4 +1,5 @@
 650;Bum
+500;testbold
 100;Testik
 100;ff
 50;fdf

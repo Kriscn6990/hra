@@ -141,7 +141,7 @@ public class Main {
                     }
                 }
                 if(player.getHp()>0&&firstmap.getCountOfmarks()==0){
-                    System.out.println("Byl jste presunut do dalsi mapy");
+                    System.out.println(ANSI_BOLD+"Byl jste presunut do dalsi mapy"+ANSI_RESET);
                     position[0]=1;
                     position[1]=1;
                     lastposition=position.clone();
